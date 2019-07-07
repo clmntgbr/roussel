@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Leader;
+use App\Entity\Person;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Leader|null find($id, $lockMode = null, $lockVersion = null)
- * @method Leader|null findOneBy(array $criteria, array $orderBy = null)
- * @method Leader[]    findAll()
- * @method Leader[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Person|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Person|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Person[]    findAll()
+ * @method Person[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class LeaderRepository extends ServiceEntityRepository
+class PersonRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Leader::class);
+        parent::__construct($registry, Person::class);
     }
 
     // /**
-    //  * @return Leader[] Returns an array of Leader objects
+    //  * @return Person[] Returns an array of Person objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class LeaderRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Leader
+    public function findOneBySomeField($value): ?Person
     {
         return $this->createQueryBuilder('l')
             ->andWhere('l.exampleField = :val')

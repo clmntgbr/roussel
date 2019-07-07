@@ -170,7 +170,7 @@ class Society
     private $address;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Leader", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Person", cascade={"persist", "remove"})
      * @ORM\JoinTable(name="society_leader")
      */
     private $leaders;
@@ -466,14 +466,14 @@ class Society
     }
 
     /**
-     * @return Collection|Leader[]
+     * @return Collection|Person[]
      */
     public function getLeaders(): Collection
     {
         return $this->leaders;
     }
 
-    public function addLeader(Leader $leader): self
+    public function addLeader(Person $leader): self
     {
         if (!$this->leaders->contains($leader)) {
             $this->leaders[] = $leader;
@@ -482,7 +482,7 @@ class Society
         return $this;
     }
 
-    public function removeLeader(Leader $leader): self
+    public function removeLeader(Person $leader): self
     {
         if ($this->leaders->contains($leader)) {
             $this->leaders->removeElement($leader);

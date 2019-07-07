@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\LeaderRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\PersonRepository")
  */
-class Leader
+class Person
 {
     /**
      * @ORM\Id()
@@ -29,7 +29,7 @@ class Leader
      *
      * @ORM\Column(type="string")
      */
-    private $function;
+    private $position;
 
     /**
      * @var string
@@ -81,18 +81,6 @@ class Leader
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getFunction(): ?string
-    {
-        return $this->function;
-    }
-
-    public function setFunction(string $function): self
-    {
-        $this->function = $function;
 
         return $this;
     }
@@ -153,6 +141,18 @@ class Leader
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getPosition(): ?string
+    {
+        return $this->position;
+    }
+
+    public function setPosition(string $position): self
+    {
+        $this->position = $position;
 
         return $this;
     }
