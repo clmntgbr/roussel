@@ -26,20 +26,68 @@ final class SocietyAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
+            ->add('id', null, [
+                'label' => 'Id'
+            ])
             ->add('name', null, [
                 'label' => 'Nom'
             ])
+            ->add('investmentFund', null, [
+                'label' => 'Fond d\'investissement'
+            ])
+            ->add('parentCompany', null, [
+                'label' => 'Société mère'
+            ])
+            ->add('holding', null, [
+                'label' => 'Holding'
+            ])
+            ->add('sector', null, [
+                'label' => 'Secteur'
+            ])
+            ->add('age', null, [
+                'label' => 'Age'
+            ])
             ->add('activity', null, [
-                'label' => 'Activité'
+                'label' => 'Activitée'
             ])
             ->add('turnover', null, [
-                'label' => 'Chiffre d\'affaire'
+                'label' => 'CA'
             ])
-            ->add('address.postalCode', null, [
-                'label' => 'Code Postal'
+            ->add('grossOperatingSurplus', null, [
+                'label' => 'Excédent Brut d\'Exploitation (EBE)'
+            ])
+            ->add('profitBeforeInterestAndTaxes', null, [
+                'label' => 'Bénéfice avant Intérêts et Impôts (EBIT)'
+            ])
+            ->add('treasury', null, [
+                'label' => 'Trésorerie'
+            ])
+            ->add('financialDebt', null, [
+                'label' => 'Dette'
+            ])
+            ->add('siren', null, [
+                'label' => 'SIREN'
+            ])
+            ->add('phoneNumber', null, [
+                'label' => 'Numéro de téléphone'
             ])
             ->add('contactEmail', null, [
                 'label' => 'Email'
+            ])
+            ->add('website', null, [
+                'label' => 'Site Web'
+            ])
+            ->add('dateCreation', null, [
+                'label' => 'Date de création de la société'
+            ])
+            ->add('dateTurnover', null, [
+                'label' => 'Date CA'
+            ])
+            ->add('createdAt', null, [
+                'label' => 'Date de création'
+            ])
+            ->add('createdBy', null, [
+                'label' => 'Créateur'
             ])
         ;
     }

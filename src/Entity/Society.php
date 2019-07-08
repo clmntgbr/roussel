@@ -162,10 +162,11 @@ class Society
     private $updatedAt;
 
     /**
-     * @var string
+     * @var User
      *
      * @Gedmo\Blameable(on="create")
-     * @ORM\Column(type="string")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
      */
     private $createdBy;
 
@@ -611,5 +612,12 @@ class Society
     public function CreatedAtForExport()
     {
         return $this->createdAt->format('d/m/Y');
+    }
+
+    public function setCreatedBy(?User $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
     }
 }

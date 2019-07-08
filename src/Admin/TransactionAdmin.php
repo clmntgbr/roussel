@@ -22,17 +22,29 @@ final class TransactionAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
+            ->add('id', null, [
+                'label' => 'Id'
+            ])
+            ->add('company', null, [
+                'label' => 'Société'
+            ])
             ->add('title', null, [
                 'label' => 'Titre'
             ])
-            ->add('company', null, [
-                'label' => 'Nom de la société'
+            ->add('content', null, [
+                'label' => 'Contenu'
             ])
             ->add('date', null, [
                 'label' => 'Date'
             ])
             ->add('city', null, [
                 'label' => 'Ville'
+            ])
+            ->add('createdAt', null, [
+                'label' => 'Date de création'
+            ])
+            ->add('createdBy', null, [
+                'label' => 'Créateur'
             ])
         ;
     }

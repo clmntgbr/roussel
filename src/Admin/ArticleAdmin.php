@@ -47,12 +47,28 @@ final class ArticleAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
+            ->add('id', null, [
+                'label' => 'Id'
+            ])
             ->add('title', null, [
                 'label' => 'Titre'
             ])
             ->add('type', null, [
-                'label' => 'Type de l\'article'
-            ]);
+                'label' => 'Type'
+            ])
+            ->add('content', null, [
+                'label' => 'Contenu'
+            ])
+            ->add('timeToRead', null, [
+                'label' => 'Temps de lecture'
+            ])
+            ->add('createdAt', null, [
+                'label' => 'Date de création'
+            ])
+            ->add('createdBy', null, [
+                'label' => 'Créateur'
+            ])
+        ;
     }
 
     protected function configureListFields(ListMapper $listMapper): void

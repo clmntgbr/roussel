@@ -71,10 +71,11 @@ class InvestmentFund
     private $updatedAt;
 
     /**
-     * @var string
+     * @var User
      *
      * @Gedmo\Blameable(on="create")
-     * @ORM\Column(type="string")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
      */
     private $createdBy;
 
@@ -348,5 +349,12 @@ class InvestmentFund
     public function PositioningExport()
     {
         return trim($this->getPositioning()->__toStringForExport());
+    }
+
+    public function setCreatedBy(?User $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
     }
 }

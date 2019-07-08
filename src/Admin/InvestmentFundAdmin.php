@@ -26,13 +26,31 @@ final class InvestmentFundAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
+            ->add('id', null, [
+                'label' => 'Id'
+            ])
             ->add('name', null, [
                 'label' => 'Nom'
             ])
-            ->add('contacts', null, [
-                'label' => 'Contact',
-                'associated_property' => 'name'
-            ]);
+            ->add('phoneNumber', null, [
+                'label' => 'Numéro de téléphone'
+            ])
+            ->add('contactEmail', null, [
+                'label' => 'Email'
+            ])
+            ->add('website', null, [
+                'label' => 'Site web'
+            ])
+            ->add('dateCreation', null, [
+                'label' => 'Date de création du fond d\'investissement'
+            ])
+            ->add('createdAt', null, [
+                'label' => 'Date de création'
+            ])
+            ->add('createdBy', null, [
+                'label' => 'Créateur'
+            ])
+        ;
     }
 
     protected function configureListFields(ListMapper $listMapper): void

@@ -68,10 +68,11 @@ class Article
     private $updatedAt;
 
     /**
-     * @var string
+     * @var User
      *
      * @Gedmo\Blameable(on="create")
-     * @ORM\Column(type="string")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
      */
     private $createdBy;
 
@@ -204,5 +205,12 @@ class Article
     public function ContentForExport()
     {
         return strip_tags($this->content);
+    }
+
+    public function setCreatedBy(?User $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
     }
 }
