@@ -17,6 +17,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class ArticleAdmin extends AbstractAdmin
 {
+    public function getExportFields()
+    {
+        return ['id', 'TitleForExport', 'ContentForExport', 'type', 'timeToRead', 'CreatedAtForExport', 'createdBy'];
+    }
 
     public function preUpdate($entity)
     {

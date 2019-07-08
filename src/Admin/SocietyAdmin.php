@@ -18,6 +18,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class SocietyAdmin extends AbstractAdmin
 {
+    public function getExportFields()
+    {
+        return ['id', 'name', 'parentCompany', 'activity', 'turnover', 'contactEmail', 'CreatedAtForExport', 'createdBy'];
+    }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {

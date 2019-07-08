@@ -14,6 +14,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class TransactionAdmin extends AbstractAdmin
 {
+    public function getExportFields()
+    {
+        return ['id', 'TitleForExport', 'ContentForExport', 'company', 'DateForExport', 'city', 'CreatedAtForExport'];
+    }
+
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper

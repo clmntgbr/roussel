@@ -61,10 +61,19 @@ class Positioning
 
     public function __toString()
     {
-        $html = "<ul>";
-        $html .= $this->operationType ? "<li>" . $this->operationType . "</li>" : "";
-        $html .= $this->approach ? "<li>" . $this->approach . "</li>" : "";
-        $html .= "</ul>";
-        return $html;
+        return sprintf(
+            '<ul><li>%s</li><li>%s</li></ul>',
+            $this->operationType,
+            $this->approach
+        );
+    }
+
+    public function __toStringForExport()
+    {
+        return sprintf(
+            '[%s, %s]',
+            $this->operationType,
+            $this->approach
+        );
     }
 }

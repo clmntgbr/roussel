@@ -607,4 +607,9 @@ class Society
     {
         return $this->createdBy;
     }
+
+    public function CreatedAtForExport()
+    {
+        return $this->createdAt->format('d/m/Y');
+    }
 }

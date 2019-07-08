@@ -18,6 +18,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class InvestmentFundAdmin extends AbstractAdmin
 {
+    public function getExportFields()
+    {
+        return ['id', 'name', 'ContactsExport', 'TargetExport', 'PositioningExport', 'CreatedAtForExport', 'createdBy'];
+    }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
@@ -40,7 +44,7 @@ final class InvestmentFundAdmin extends AbstractAdmin
             ])
             ->add('contacts', TextType::class, [
                 'label' => 'Contact',
-                'associated_property' => 'name'
+                'associated_property' => 'contactEmail'
             ])
             ->add('target', 'html', [
                 'label' => 'Cible'

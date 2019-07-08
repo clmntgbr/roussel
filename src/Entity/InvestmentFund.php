@@ -325,4 +325,28 @@ class InvestmentFund
     {
         return $this->createdBy;
     }
+
+    public function ContactsExport()
+    {
+        $tmp = [];
+        foreach ($this->contacts as $contact) {
+            $tmp[] = sprintf('[%s, %s]', $contact->getName(), $contact->getContactEmail());
+        }
+        return implode(', ', $tmp);
+    }
+
+    public function CreatedAtForExport()
+    {
+        return $this->createdAt->format('d/m/Y');
+    }
+
+    public function TargetExport()
+    {
+        return trim($this->getTarget()->__toStringForExport());
+    }
+
+    public function PositioningExport()
+    {
+        return trim($this->getPositioning()->__toStringForExport());
+    }
 }

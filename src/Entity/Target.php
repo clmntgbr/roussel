@@ -99,12 +99,23 @@ class Target
 
     public function __toString()
     {
-        $html = "<ul>";
-        $html .= $this->geography ? "<li>" . $this->geography . "</li>" : "";
-        $html .= $this->ve ? "<li>" . $this->ve . "</li>" : "";
-        $html .= $this->investmentTicket ? "<li>" . $this->investmentTicket . "</li>" : "";
-        $html .= $this->investmentSector ? "<li>" . $this->investmentSector . "</li>" : "";
-        $html .= "</ul>";
-        return $html;
+        return sprintf(
+            '<ul><li>%s</li><li>%s</li><li>%s</li><li>%s</li></ul>',
+            $this->geography,
+            $this->ve,
+            $this->investmentTicket,
+            $this->investmentSector
+        );
+    }
+
+    public function __toStringForExport()
+    {
+        return sprintf(
+            '[%s, %s, %s, %s]',
+            $this->geography,
+            $this->ve,
+            $this->investmentTicket,
+            $this->investmentSector
+        );
     }
 }

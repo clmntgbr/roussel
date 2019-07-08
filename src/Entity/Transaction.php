@@ -189,4 +189,24 @@ class Transaction
     {
         return $this->createdBy;
     }
+
+    public function CreatedAtForExport()
+    {
+        return $this->createdAt->format('d/m/Y');
+    }
+
+    public function DateForExport()
+    {
+        return $this->date->format('d/m/Y');
+    }
+
+    public function TitleForExport()
+    {
+        return strip_tags($this->title);
+    }
+
+    public function ContentForExport()
+    {
+        return strip_tags($this->content);
+    }
 }
