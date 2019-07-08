@@ -11,7 +11,10 @@ class SpecialtyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name');
+        $builder->add('name', null, [
+            'label' => 'Nom de la spécialité',
+            'required' => false
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

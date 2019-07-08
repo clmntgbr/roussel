@@ -15,36 +15,42 @@ class Article
      * @var UploadedFile|null
      */
     public $file;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
+
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $title;
+
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $type;
+
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $content;
+
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
-    private $timeToRead = 0;
+    private $timeToRead;
+
     /**
      * @var \DateTimeImmutable
      *
@@ -62,12 +68,33 @@ class Article
     private $updatedAt;
 
     /**
+     * @var string
+     *
+     * @Gedmo\Blameable(on="create")
+     * @ORM\Column(type="string")
+     */
+    private $createdBy;
+
+    /**
      * @var Media|null
      *
      * @ORM\OneToOne(targetEntity="App\Entity\Media", cascade={"persist", "remove"}, fetch="EAGER")
-     * @ORM\JoinColumn(name="preview_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="preview_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
      */
     private $preview;
+
+    public function __construct()
+    {
+        $this->setTimeToRead();
+    }
+
+    public function setTimeToRead(): self
+    {
+        $word = str_word_count(strip_tags($this->content));
+        $this->timeToRead = ceil($word/200);
+
+        return $this;
+    }
 
     public function getId(): ?int
     {
@@ -79,7 +106,7 @@ class Article
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -91,7 +118,7 @@ class Article
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function setType(?string $type): self
     {
         $this->type = $type;
 
@@ -103,7 +130,7 @@ class Article
         return $this->content;
     }
 
-    public function setContent(string $content): self
+    public function setContent(?string $content): self
     {
         $this->content = $content;
 
@@ -113,13 +140,6 @@ class Article
     public function getTimeToRead(): ?float
     {
         return $this->timeToRead;
-    }
-
-    public function setTimeToRead(float $timeToRead): self
-    {
-        $this->timeToRead = $timeToRead;
-
-        return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -156,6 +176,11 @@ class Article
         $this->preview = $preview;
 
         return $this;
+    }
+
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
     }
 
     /**

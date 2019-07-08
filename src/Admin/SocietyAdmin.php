@@ -12,39 +12,32 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\DatePickerType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-final class SocietiesAdmin extends AbstractAdmin
+final class SocietyAdmin extends AbstractAdmin
 {
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
-            ->add('id')
-            ->add('name')
-            ->add('investmentFund')
-            ->add('parentCompany')
-            ->add('holding')
-            ->add('sector')
-            ->add('age')
-            ->add('activity')
-            ->add('turnover')
-            ->add('grossOperatingSurplus')
-            ->add('profitBeforeInterestAndTaxes')
-            ->add('treasury')
-            ->add('financialDebt')
-            ->add('siren')
-            ->add('phoneNumber')
-            ->add('contactEmail')
-            ->add('website')
-            ->add('dateCreation')
-            ->add('dateTurnover')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ;
+            ->add('name', null, [
+                'label' => 'Nom'
+            ])
+            ->add('activity', null, [
+                'label' => 'Activité'
+            ])
+            ->add('turnover', null, [
+                'label' => 'Chiffre d\'affaire'
+            ])
+            ->add('address.postalCode', null, [
+                'label' => 'Code Postal'
+            ])
+            ->add('contactEmail', null, [
+                'label' => 'Email'
+            ])
+        ;
     }
 
     protected function configureListFields(ListMapper $listMapper): void
@@ -66,15 +59,23 @@ final class SocietiesAdmin extends AbstractAdmin
             ->add('contactEmail', null, [
                 'label' => 'Email'
             ])
-            ->add('updatedAt', null, [
-                'label' => 'Date modification'
+            ->add('createdAt', null, [
+                'label' => 'Date de création',
+                'format' => 'd/m/Y H:i:s'
+            ])
+            ->add('createdBy', TextType::class, [
+                'disabled' => true,
+                'required' => false
             ])
             ->add('_action', null, [
                 'actions' => [
-                    'show' => [],
-                    'edit' => [],
-                    'delete' => [],
-                ],
+                    'edit' => [
+                        'template' => 'edit_button.html.twig'
+                    ],
+                    'delete' => [
+                        'template' => 'delete_button.html.twig'
+                    ],
+                ]
             ]);
     }
 
@@ -100,6 +101,10 @@ final class SocietiesAdmin extends AbstractAdmin
                 'view_timezone' => 'Europe/Paris'
             ])
             ->add('id', TextType::class, [
+                'disabled' => true,
+                'required' => false
+            ])
+            ->add('createdBy', TextType::class, [
                 'disabled' => true,
                 'required' => false
             ])
@@ -174,11 +179,13 @@ final class SocietiesAdmin extends AbstractAdmin
             ])
             ->add('dateCreation', DatePickerType::class, [
                 'required' => false,
-                'label' => 'Date de création de la société'
+                'label' => 'Date de création de la société',
+                'format' => 'dd/MM/yyyy'
             ])
             ->add('dateTurnover', DatePickerType::class, [
                 'required' => false,
-                'label' => 'Date du Chiffre d\'affaire'
+                'label' => 'Date du Chiffre d\'affaire',
+                'format' => 'dd/MM/yyyy'
             ])
             ->end()
             ->with('Adresse', [
@@ -186,7 +193,8 @@ final class SocietiesAdmin extends AbstractAdmin
                 'box_class' => 'box box-solid box-success'
             ])
             ->add('address', AddressType::class, [
-                'label' => false
+                'label' => false,
+                'required' => false
             ])
             ->end()
             ->with('Dirigeants', [
@@ -255,32 +263,5 @@ final class SocietiesAdmin extends AbstractAdmin
             ])
             ->end()
         ;
-    }
-
-    protected function configureShowFields(ShowMapper $showMapper): void
-    {
-        $showMapper
-            ->add('id')
-            ->add('name')
-            ->add('investmentFund')
-            ->add('parentCompany')
-            ->add('holding')
-            ->add('sector')
-            ->add('age')
-            ->add('activity')
-            ->add('turnover')
-            ->add('grossOperatingSurplus')
-            ->add('profitBeforeInterestAndTaxes')
-            ->add('treasury')
-            ->add('financialDebt')
-            ->add('siren')
-            ->add('phoneNumber')
-            ->add('contactEmail')
-            ->add('website')
-            ->add('dateCreation')
-            ->add('dateTurnover')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ;
     }
 }

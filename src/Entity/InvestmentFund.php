@@ -20,30 +20,30 @@ class InvestmentFund
     private $id;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $name;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $phoneNumber;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $contactEmail;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $website;
 
@@ -71,10 +71,18 @@ class InvestmentFund
     private $updatedAt;
 
     /**
+     * @var string
+     *
+     * @Gedmo\Blameable(on="create")
+     * @ORM\Column(type="string")
+     */
+    private $createdBy;
+
+    /**
      * @var Address|null
      *
      * @ORM\OneToOne(targetEntity="App\Entity\Address", cascade={"persist", "remove"}, fetch="EAGER")
-     * @ORM\JoinColumn(name="address_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="address_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
      */
     private $address;
 
@@ -82,7 +90,7 @@ class InvestmentFund
      * @var Positioning|null
      *
      * @ORM\OneToOne(targetEntity="App\Entity\Positioning", cascade={"persist", "remove"}, fetch="EAGER")
-     * @ORM\JoinColumn(name="positioning_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="positioning_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
      */
     private $positioning;
 
@@ -90,7 +98,7 @@ class InvestmentFund
      * @var Target|null
      *
      * @ORM\OneToOne(targetEntity="App\Entity\Target", cascade={"persist", "remove"}, fetch="EAGER")
-     * @ORM\JoinColumn(name="target_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="target_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
      */
     private $target;
 
@@ -98,7 +106,7 @@ class InvestmentFund
      * @var FundsUnderManagement|null
      *
      * @ORM\OneToOne(targetEntity="App\Entity\FundsUnderManagement", cascade={"persist", "remove"}, fetch="EAGER")
-     * @ORM\JoinColumn(name="funds_under_management_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="funds_under_management_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
      */
     private $fundsUnderManagement;
 
@@ -134,7 +142,7 @@ class InvestmentFund
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -146,7 +154,7 @@ class InvestmentFund
         return $this->phoneNumber;
     }
 
-    public function setPhoneNumber(string $phoneNumber): self
+    public function setPhoneNumber(?string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
 
@@ -158,7 +166,7 @@ class InvestmentFund
         return $this->contactEmail;
     }
 
-    public function setContactEmail(string $contactEmail): self
+    public function setContactEmail(?string $contactEmail): self
     {
         $this->contactEmail = $contactEmail;
 
@@ -170,7 +178,7 @@ class InvestmentFund
         return $this->website;
     }
 
-    public function setWebsite(string $website): self
+    public function setWebsite(?string $website): self
     {
         $this->website = $website;
 
@@ -221,6 +229,42 @@ class InvestmentFund
     public function setAddress(?Address $address): self
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    public function getPositioning(): ?Positioning
+    {
+        return $this->positioning;
+    }
+
+    public function setPositioning(?Positioning $positioning): self
+    {
+        $this->positioning = $positioning;
+
+        return $this;
+    }
+
+    public function getTarget(): ?Target
+    {
+        return $this->target;
+    }
+
+    public function setTarget(?Target $target): self
+    {
+        $this->target = $target;
+
+        return $this;
+    }
+
+    public function getFundsUnderManagement(): ?FundsUnderManagement
+    {
+        return $this->fundsUnderManagement;
+    }
+
+    public function setFundsUnderManagement(?FundsUnderManagement $fundsUnderManagement): self
+    {
+        $this->fundsUnderManagement = $fundsUnderManagement;
 
         return $this;
     }
@@ -277,39 +321,8 @@ class InvestmentFund
         return $this;
     }
 
-    public function getPositioning(): ?Positioning
+    public function getCreatedBy()
     {
-        return $this->positioning;
-    }
-
-    public function setPositioning(?Positioning $positioning): self
-    {
-        $this->positioning = $positioning;
-
-        return $this;
-    }
-
-    public function getTarget(): ?Target
-    {
-        return $this->target;
-    }
-
-    public function setTarget(?Target $target): self
-    {
-        $this->target = $target;
-
-        return $this;
-    }
-
-    public function getFundsUnderManagement(): ?FundsUnderManagement
-    {
-        return $this->fundsUnderManagement;
-    }
-
-    public function setFundsUnderManagement(?FundsUnderManagement $fundsUnderManagement): self
-    {
-        $this->fundsUnderManagement = $fundsUnderManagement;
-
-        return $this;
+        return $this->createdBy;
     }
 }

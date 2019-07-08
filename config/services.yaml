@@ -15,32 +15,31 @@ services:
 
     app.util.uploader:
         class: App\Util\Uploader
-        arguments: ['@doctrine.orm.entity_manager']
         public: true
 
     admin.societies:
-        class: App\Admin\SocietiesAdmin
+        class: App\Admin\SocietyAdmin
         arguments: [~, App\Entity\Society, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: 'Admin', label: 'Sociétés' }
         public: true
 
     admin.investment_funds:
-        class: App\Admin\InvestmentFundsAdmin
+        class: App\Admin\InvestmentFundAdmin
         arguments: [~, App\Entity\InvestmentFund, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: 'Admin', label: "Fonds d'investissements" }
         public: true
 
     admin.articles:
-        class: App\Admin\ArticlesAdmin
+        class: App\Admin\ArticleAdmin
         arguments: [~, App\Entity\Article, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: 'Admin', label: 'Articles' }
         public: true
 
     admin.transactions:
-        class: App\Admin\TransactionsAdmin
+        class: App\Admin\TransactionAdmin
         arguments: [~, App\Entity\Transaction, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: 'Admin', label: 'Transactions' }

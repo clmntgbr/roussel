@@ -12,8 +12,14 @@ class PositioningType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('operationType')
-            ->add('approach');
+            ->add('operationType', null, [
+                'label' => 'Type d\'opération',
+                'required' => false
+            ])
+            ->add('approach', null, [
+                'label' => 'Approche',
+                'required' => false
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

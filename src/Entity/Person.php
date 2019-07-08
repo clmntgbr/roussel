@@ -18,37 +18,37 @@ class Person
     private $id;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $name;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $position;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $phoneNumber;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $contactEmail;
 
     /**
      * @var \DateTimeImmutable
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $birthday;
 
@@ -78,9 +78,21 @@ class Person
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getPosition(): ?string
+    {
+        return $this->position;
+    }
+
+    public function setPosition(?string $position): self
+    {
+        $this->position = $position;
 
         return $this;
     }
@@ -90,7 +102,7 @@ class Person
         return $this->phoneNumber;
     }
 
-    public function setPhoneNumber(string $phoneNumber): self
+    public function setPhoneNumber(?string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
 
@@ -102,7 +114,7 @@ class Person
         return $this->contactEmail;
     }
 
-    public function setContactEmail(string $contactEmail): self
+    public function setContactEmail(?string $contactEmail): self
     {
         $this->contactEmail = $contactEmail;
 
@@ -114,7 +126,7 @@ class Person
         return $this->birthday;
     }
 
-    public function setBirthday(\DateTimeInterface $birthday): self
+    public function setBirthday(?\DateTimeInterface $birthday): self
     {
         $this->birthday = $birthday;
 
@@ -145,15 +157,14 @@ class Person
         return $this;
     }
 
-    public function getPosition(): ?string
+    public function __toString()
     {
-        return $this->position;
-    }
-
-    public function setPosition(string $position): self
-    {
-        $this->position = $position;
-
-        return $this;
+        $html = "<ul>";
+        $html .= $this->name ? "<li>" . $this->name . "</li>" : "";
+        $html .= $this->position ? "<li>" . $this->position . "</li>" : "";
+        $html .= $this->phoneNumber ? "<li>" . $this->phoneNumber . "</li>" : "";
+        $html .= $this->contactEmail ? "<li>" . $this->contactEmail . "</li>" : "";
+        $html .= "</ul>";
+        return $html;
     }
 }

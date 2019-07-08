@@ -12,10 +12,22 @@ class TargetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('geography')
-            ->add('ve')
-            ->add('investmentTicket')
-            ->add('investmentSector')
+            ->add('geography', null, [
+                'label' => 'Géographie',
+                'required' => false
+            ])
+            ->add('ve', null, [
+                'label' => 'VE',
+                'required' => false
+            ])
+            ->add('investmentTicket', null, [
+                'label' => 'Ticket d\'investissement (M€)',
+                'required' => false
+            ])
+            ->add('investmentSector', null, [
+                'label' => 'Secteur d\'investissement',
+                'required' => false
+            ])
         ;
     }
 

@@ -17,16 +17,16 @@ class Media
     private $id;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $name;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $type;
 
@@ -44,6 +44,23 @@ class Media
         $this->path = $path;
     }
 
+    public function getFile()
+    {
+        if($this->path === null) {
+            return $this->name;
+        }
+        return sprintf('%s%s', $this->path, $this->name);
+    }
+
+    public function updateMedia(string $name, string $type, string $path)
+    {
+        $this->name = $name;
+        $this->type = $type;
+        $this->path = $path;
+
+        return $this;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,7 +71,7 @@ class Media
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -66,19 +83,11 @@ class Media
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function setType(?string $type): self
     {
         $this->type = $type;
 
         return $this;
-    }
-
-    public function getFile()
-    {
-        if($this->path === null) {
-            return $this->name;
-        }
-        return sprintf('%s%s', $this->path, $this->name);
     }
 
     public function getPath(): ?string
@@ -88,15 +97,6 @@ class Media
 
     public function setPath(?string $path): self
     {
-        $this->path = $path;
-
-        return $this;
-    }
-
-    public function updateMedia(string $name, string $type, $path)
-    {
-        $this->name = $name;
-        $this->type = $type;
         $this->path = $path;
 
         return $this;

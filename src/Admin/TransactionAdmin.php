@@ -9,45 +9,67 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\DatePickerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-final class TransactionsAdmin extends AbstractAdmin
+final class TransactionAdmin extends AbstractAdmin
 {
-
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
-            ->add('id')
-            ->add('company')
-            ->add('title')
-            ->add('content')
-            ->add('date')
-            ->add('city')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ;
+            ->add('title', null, [
+                'label' => 'Titre'
+            ])
+            ->add('company', null, [
+                'label' => 'Nom de la société'
+            ])
+            ->add('date', null, [
+                'label' => 'Date'
+            ])
+            ->add('city', null, [
+                'label' => 'Ville'
+            ])
+        ;
     }
 
     protected function configureListFields(ListMapper $listMapper): void
     {
         $listMapper
             ->addIdentifier('id')
-            ->add('company')
-            ->add('title')
-            ->add('content')
-            ->add('date')
-            ->add('city')
-            ->add('createdAt')
-            ->add('updatedAt')
+            ->add('title', 'html', [
+                'label' => 'Titre'
+            ])
+            ->add('company', TextType::class, [
+                'label' => 'Nom de la société'
+            ])
+            ->add('date', 'date', [
+                'label' => 'Date de la transaction',
+                'format' => 'd/m/Y',
+                'locale' => 'fr',
+                'timezone' => 'Europe/Paris'
+            ])
+            ->add('city', TextType::class, [
+                'label' => 'Ville'
+            ])
+            ->add('createdAt', null, [
+                'label' => 'Date de création',
+                'format' => 'd/m/Y H:i:s'
+            ])
+            ->add('createdBy', TextType::class, [
+                'disabled' => true,
+                'required' => false
+            ])
             ->add('_action', null, [
                 'actions' => [
-                    'show' => [],
-                    'edit' => [],
-                    'delete' => [],
-                ],
-            ]);
+                    'edit' => [
+                        'template' => 'edit_button.html.twig'
+                    ],
+                    'delete' => [
+                        'template' => 'delete_button.html.twig'
+                    ],
+                ]
+            ])
+        ;
     }
 
     protected function configureFormFields(FormMapper $formMapper): void
@@ -75,41 +97,37 @@ final class TransactionsAdmin extends AbstractAdmin
                 'disabled' => true,
                 'required' => false
             ])
+            ->add('createdBy', TextType::class, [
+                'disabled' => true,
+                'required' => false
+            ])
             ->end()
             ->with('Général', [
                 'class' => 'col-xs-12',
                 'box_class' => 'box box-solid box-success'
             ])
             ->add('title', CKEditorType::class, [
-                'label' => 'Titre'
+                'label' => 'Titre',
+                'required' => false
             ])
             ->add('content', CKEditorType::class, [
-                'label' => 'Contenu'
+                'label' => 'Contenu',
+                'required' => false
             ])
             ->add('company', TextType::class, [
-                'label' => 'Société'
+                'label' => 'Société',
+                'required' => false
             ])
             ->add('date', DatePickerType::class, [
-                'label' => 'Date de la transaction'
+                'label' => 'Date de la transaction',
+                'format' => 'dd/MM/yyyy',
+                'required' => false
             ])
             ->add('city', TextType::class, [
-                'label' => 'Ville'
+                'label' => 'Ville',
+                'required' => false
             ])
             ->end()
-            ;
-    }
-
-    protected function configureShowFields(ShowMapper $showMapper): void
-    {
-        $showMapper
-            ->add('id')
-            ->add('company')
-            ->add('title')
-            ->add('content')
-            ->add('date')
-            ->add('city')
-            ->add('createdAt')
-            ->add('updatedAt')
             ;
     }
 }

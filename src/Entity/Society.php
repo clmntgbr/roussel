@@ -20,128 +20,128 @@ class Society
     private $id;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $name;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $investmentFund;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $parentCompany;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $holding;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $sector;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $age;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $activity;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $turnover;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $grossOperatingSurplus;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $profitBeforeInterestAndTaxes;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $treasury;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $financialDebt;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $siren;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $phoneNumber;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $contactEmail;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $website;
 
     /**
      * @var \DateTimeImmutable
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateCreation;
 
     /**
      * @var \DateTimeImmutable
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateTurnover;
 
@@ -162,10 +162,18 @@ class Society
     private $updatedAt;
 
     /**
+     * @var string
+     *
+     * @Gedmo\Blameable(on="create")
+     * @ORM\Column(type="string")
+     */
+    private $createdBy;
+
+    /**
      * @var Address|null
      *
      * @ORM\OneToOne(targetEntity="App\Entity\Address", cascade={"persist", "remove"}, fetch="EAGER")
-     * @ORM\JoinColumn(name="address_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="address_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
      */
     private $address;
 
@@ -218,7 +226,7 @@ class Society
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -230,7 +238,7 @@ class Society
         return $this->investmentFund;
     }
 
-    public function setInvestmentFund(string $investmentFund): self
+    public function setInvestmentFund(?string $investmentFund): self
     {
         $this->investmentFund = $investmentFund;
 
@@ -242,7 +250,7 @@ class Society
         return $this->parentCompany;
     }
 
-    public function setParentCompany(string $parentCompany): self
+    public function setParentCompany(?string $parentCompany): self
     {
         $this->parentCompany = $parentCompany;
 
@@ -254,7 +262,7 @@ class Society
         return $this->holding;
     }
 
-    public function setHolding(string $holding): self
+    public function setHolding(?string $holding): self
     {
         $this->holding = $holding;
 
@@ -266,7 +274,7 @@ class Society
         return $this->sector;
     }
 
-    public function setSector(string $sector): self
+    public function setSector(?string $sector): self
     {
         $this->sector = $sector;
 
@@ -278,7 +286,7 @@ class Society
         return $this->age;
     }
 
-    public function setAge(string $age): self
+    public function setAge(?string $age): self
     {
         $this->age = $age;
 
@@ -290,7 +298,7 @@ class Society
         return $this->activity;
     }
 
-    public function setActivity(string $activity): self
+    public function setActivity(?string $activity): self
     {
         $this->activity = $activity;
 
@@ -302,7 +310,7 @@ class Society
         return $this->turnover;
     }
 
-    public function setTurnover(string $turnover): self
+    public function setTurnover(?string $turnover): self
     {
         $this->turnover = $turnover;
 
@@ -314,7 +322,7 @@ class Society
         return $this->grossOperatingSurplus;
     }
 
-    public function setGrossOperatingSurplus(string $grossOperatingSurplus): self
+    public function setGrossOperatingSurplus(?string $grossOperatingSurplus): self
     {
         $this->grossOperatingSurplus = $grossOperatingSurplus;
 
@@ -326,7 +334,7 @@ class Society
         return $this->profitBeforeInterestAndTaxes;
     }
 
-    public function setProfitBeforeInterestAndTaxes(string $profitBeforeInterestAndTaxes): self
+    public function setProfitBeforeInterestAndTaxes(?string $profitBeforeInterestAndTaxes): self
     {
         $this->profitBeforeInterestAndTaxes = $profitBeforeInterestAndTaxes;
 
@@ -338,7 +346,7 @@ class Society
         return $this->treasury;
     }
 
-    public function setTreasury(string $treasury): self
+    public function setTreasury(?string $treasury): self
     {
         $this->treasury = $treasury;
 
@@ -350,7 +358,7 @@ class Society
         return $this->financialDebt;
     }
 
-    public function setFinancialDebt(string $financialDebt): self
+    public function setFinancialDebt(?string $financialDebt): self
     {
         $this->financialDebt = $financialDebt;
 
@@ -362,7 +370,7 @@ class Society
         return $this->siren;
     }
 
-    public function setSiren(string $siren): self
+    public function setSiren(?string $siren): self
     {
         $this->siren = $siren;
 
@@ -374,7 +382,7 @@ class Society
         return $this->phoneNumber;
     }
 
-    public function setPhoneNumber(string $phoneNumber): self
+    public function setPhoneNumber(?string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
 
@@ -386,7 +394,7 @@ class Society
         return $this->contactEmail;
     }
 
-    public function setContactEmail(string $contactEmail): self
+    public function setContactEmail(?string $contactEmail): self
     {
         $this->contactEmail = $contactEmail;
 
@@ -398,7 +406,7 @@ class Society
         return $this->website;
     }
 
-    public function setWebsite(string $website): self
+    public function setWebsite(?string $website): self
     {
         $this->website = $website;
 
@@ -410,7 +418,7 @@ class Society
         return $this->dateCreation;
     }
 
-    public function setDateCreation(\DateTimeInterface $dateCreation): self
+    public function setDateCreation(?\DateTimeInterface $dateCreation): self
     {
         $this->dateCreation = $dateCreation;
 
@@ -422,7 +430,7 @@ class Society
         return $this->dateTurnover;
     }
 
-    public function setDateTurnover(\DateTimeInterface $dateTurnover): self
+    public function setDateTurnover(?\DateTimeInterface $dateTurnover): self
     {
         $this->dateTurnover = $dateTurnover;
 
@@ -593,5 +601,10 @@ class Society
         }
 
         return $this;
+    }
+
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
     }
 }

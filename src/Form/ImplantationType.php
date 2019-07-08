@@ -12,7 +12,10 @@ class ImplantationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name');
+            ->add('name', null, [
+                'label' => 'Nom de l\'implantation',
+                'required' => false
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

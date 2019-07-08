@@ -12,46 +12,61 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\DatePickerType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-final class InvestmentFundsAdmin extends AbstractAdmin
+final class InvestmentFundAdmin extends AbstractAdmin
 {
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
-            ->add('id')
-            ->add('name')
-            ->add('phoneNumber')
-            ->add('contactEmail')
-            ->add('website')
-            ->add('dateCreation')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ;
+            ->add('name', null, [
+                'label' => 'Nom'
+            ])
+            ->add('contacts', null, [
+                'label' => 'Contact',
+                'associated_property' => 'name'
+            ]);
     }
 
     protected function configureListFields(ListMapper $listMapper): void
     {
         $listMapper
             ->addIdentifier('id')
-            ->add('name')
-            ->add('phoneNumber')
-            ->add('contactEmail')
-            ->add('website')
-            ->add('dateCreation')
-            ->add('createdAt')
-            ->add('updatedAt')
+            ->add('name', TextType::class, [
+                'label' => 'Nom'
+            ])
+            ->add('contacts', TextType::class, [
+                'label' => 'Contact',
+                'associated_property' => 'name'
+            ])
+            ->add('target', 'html', [
+                'label' => 'Cible'
+            ])
+            ->add('positioning', 'html', [
+                'label' => 'Positionnement'
+            ])
+            ->add('createdAt', null, [
+                'label' => 'Date de création',
+                'format' => 'd/m/Y H:i:s'
+            ])
+            ->add('createdBy', TextType::class, [
+                'disabled' => true,
+                'required' => false
+            ])
             ->add('_action', null, [
                 'actions' => [
-                    'show' => [],
-                    'edit' => [],
-                    'delete' => [],
-                ],
-            ]);
+                    'edit' => [
+                        'template' => 'edit_button.html.twig'
+                    ],
+                    'delete' => [
+                        'template' => 'delete_button.html.twig'
+                    ],
+                ]
+            ])
+        ;
     }
 
     protected function configureFormFields(FormMapper $formMapper): void
@@ -79,6 +94,10 @@ final class InvestmentFundsAdmin extends AbstractAdmin
                 'disabled' => true,
                 'required' => false
             ])
+            ->add('createdBy', TextType::class, [
+                'disabled' => true,
+                'required' => false
+            ])
             ->end()
             ->with('Général', [
                 'class' => 'col-xs-12',
@@ -102,7 +121,8 @@ final class InvestmentFundsAdmin extends AbstractAdmin
             ])
             ->add('dateCreation', DatePickerType::class, [
                 'required' => false,
-                'label' => 'Date de création du fond d\'investissement'
+                'label' => 'Date de création du fond d\'investissement',
+                'format' => 'dd/MM/yyyy'
             ])
             ->end()
             ->with('Adresse', [
@@ -110,7 +130,8 @@ final class InvestmentFundsAdmin extends AbstractAdmin
                 'box_class' => 'box box-solid box-success'
             ])
             ->add('address', AddressType::class, [
-                'label' => false
+                'label' => false,
+                'required' => false
             ])
             ->end()
             ->with('Cible', [
@@ -118,7 +139,8 @@ final class InvestmentFundsAdmin extends AbstractAdmin
                 'box_class' => 'box box-solid box-success'
             ])
             ->add('target', TargetType::class, [
-                'label' => false
+                'label' => false,
+                'required' => false
             ])
             ->end()
             ->with('Fonds sous gestion', [
@@ -126,7 +148,8 @@ final class InvestmentFundsAdmin extends AbstractAdmin
                 'box_class' => 'box box-solid box-success'
             ])
             ->add('fundsUnderManagement', FundsUnderManagementType::class, [
-                'label' => false
+                'label' => false,
+                'required' => false
             ])
             ->end()
             ->with('Positionnement', [
@@ -134,7 +157,8 @@ final class InvestmentFundsAdmin extends AbstractAdmin
                 'box_class' => 'box box-solid box-success'
             ])
             ->add('positioning', PositioningType::class, [
-                'label' => false
+                'label' => false,
+                'required' => false
             ])
             ->end()
             ->with('Notes', [
@@ -163,19 +187,5 @@ final class InvestmentFundsAdmin extends AbstractAdmin
                 'required' => false
             ])
             ->end();
-    }
-
-    protected function configureShowFields(ShowMapper $showMapper): void
-    {
-        $showMapper
-            ->add('id')
-            ->add('name')
-            ->add('phoneNumber')
-            ->add('contactEmail')
-            ->add('website')
-            ->add('dateCreation')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ;
     }
 }

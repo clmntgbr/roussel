@@ -17,30 +17,30 @@ class Target
     private $id;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $geography;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $ve;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $investmentTicket;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $investmentSector;
 
@@ -54,7 +54,7 @@ class Target
         return $this->geography;
     }
 
-    public function setGeography(string $geography): self
+    public function setGeography(?string $geography): self
     {
         $this->geography = $geography;
 
@@ -66,7 +66,7 @@ class Target
         return $this->ve;
     }
 
-    public function setVe(string $ve): self
+    public function setVe(?string $ve): self
     {
         $this->ve = $ve;
 
@@ -78,7 +78,7 @@ class Target
         return $this->investmentTicket;
     }
 
-    public function setInvestmentTicket(string $investmentTicket): self
+    public function setInvestmentTicket(?string $investmentTicket): self
     {
         $this->investmentTicket = $investmentTicket;
 
@@ -90,10 +90,21 @@ class Target
         return $this->investmentSector;
     }
 
-    public function setInvestmentSector(string $investmentSector): self
+    public function setInvestmentSector(?string $investmentSector): self
     {
         $this->investmentSector = $investmentSector;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        $html = "<ul>";
+        $html .= $this->geography ? "<li>" . $this->geography . "</li>" : "";
+        $html .= $this->ve ? "<li>" . $this->ve . "</li>" : "";
+        $html .= $this->investmentTicket ? "<li>" . $this->investmentTicket . "</li>" : "";
+        $html .= $this->investmentSector ? "<li>" . $this->investmentSector . "</li>" : "";
+        $html .= "</ul>";
+        return $html;
     }
 }

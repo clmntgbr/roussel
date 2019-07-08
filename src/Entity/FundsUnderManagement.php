@@ -17,16 +17,16 @@ class FundsUnderManagement
     private $id;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $capitalStructure;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $managedCapital;
 
@@ -40,7 +40,7 @@ class FundsUnderManagement
         return $this->capitalStructure;
     }
 
-    public function setCapitalStructure(string $capitalStructure): self
+    public function setCapitalStructure(?string $capitalStructure): self
     {
         $this->capitalStructure = $capitalStructure;
 
@@ -52,7 +52,7 @@ class FundsUnderManagement
         return $this->managedCapital;
     }
 
-    public function setManagedCapital(string $managedCapital): self
+    public function setManagedCapital(?string $managedCapital): self
     {
         $this->managedCapital = $managedCapital;
 

@@ -12,8 +12,14 @@ class FundsUnderManagementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('capitalStructure')
-            ->add('managedCapital');
+            ->add('capitalStructure', null, [
+                'label' => 'Structure du capital',
+                'required' => false
+            ])
+            ->add('managedCapital', null, [
+                'label' => 'Capitaux gérés',
+                'required' => false
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -18,37 +18,37 @@ class Transaction
     private $id;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $company;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $title;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $content;
 
     /**
      * @var \DateTimeImmutable
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $date;
 
     /**
-     * @var string
+     * @var ?string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $city;
 
@@ -69,10 +69,18 @@ class Transaction
     private $updatedAt;
 
     /**
+     * @var string
+     *
+     * @Gedmo\Blameable(on="create")
+     * @ORM\Column(type="string")
+     */
+    private $createdBy;
+
+    /**
      * @var Media|null
      *
      * @ORM\OneToOne(targetEntity="App\Entity\Media", cascade={"persist", "remove"}, fetch="EAGER")
-     * @ORM\JoinColumn(name="preview_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="preview_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
      */
     private $preview;
 
@@ -86,7 +94,7 @@ class Transaction
         return $this->company;
     }
 
-    public function setCompany(string $company): self
+    public function setCompany(?string $company): self
     {
         $this->company = $company;
 
@@ -98,7 +106,7 @@ class Transaction
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -110,7 +118,7 @@ class Transaction
         return $this->content;
     }
 
-    public function setContent(string $content): self
+    public function setContent(?string $content): self
     {
         $this->content = $content;
 
@@ -122,7 +130,7 @@ class Transaction
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(?\DateTimeInterface $date): self
     {
         $this->date = $date;
 
@@ -134,7 +142,7 @@ class Transaction
         return $this->city;
     }
 
-    public function setCity(string $city): self
+    public function setCity(?string $city): self
     {
         $this->city = $city;
 
@@ -175,5 +183,10 @@ class Transaction
         $this->preview = $preview;
 
         return $this;
+    }
+
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
     }
 }
