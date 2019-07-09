@@ -68,6 +68,15 @@ class Person
      */
     private $updatedAt;
 
+    /**
+     * @var User
+     *
+     * @Gedmo\Blameable(on="create")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
+     */
+    private $createdBy;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -166,5 +175,17 @@ class Person
         $html .= $this->contactEmail ? "<li>" . $this->contactEmail . "</li>" : "";
         $html .= "</ul>";
         return $html;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
     }
 }
