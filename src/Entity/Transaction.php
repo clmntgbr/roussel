@@ -196,6 +196,16 @@ class Transaction
         return $this->createdAt->format('d/m/Y');
     }
 
+    public function UpdatedAtForExport()
+    {
+        return $this->updatedAt->format('d/m/Y');
+    }
+
+    public function CreatedByForExport()
+    {
+        return $this->createdBy->getEmail();
+    }
+
     public function DateForExport()
     {
         return $this->date->format('d/m/Y');

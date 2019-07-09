@@ -19,7 +19,7 @@ final class ArticleAdmin extends AbstractAdmin
 {
     public function getExportFields()
     {
-        return ['id', 'TitleForExport', 'ContentForExport', 'type', 'timeToRead', 'CreatedAtForExport', 'createdBy'];
+        return ['id', 'TitleForExport', 'ContentForExport', 'type', 'timeToRead', 'CreatedAtForExport', 'UpdatedAtForExport', 'CreatedByForExport'];
     }
 
     public function preUpdate($entity)
@@ -88,6 +88,10 @@ final class ArticleAdmin extends AbstractAdmin
             ->add('createdBy', TextType::class, [
                 'disabled' => true,
                 'required' => false
+            ])
+            ->add('updatedAt', null, [
+                'label' => 'Date de modification',
+                'format' => 'd/m/Y H:i:s'
             ])
             ->add('_action', null, [
                 'actions' => [

@@ -326,7 +326,18 @@ class LegacyCommand extends Command
                 $item['founds_under_management_id'] !== null ? "'" . $item['founds_under_management_id'] . "'": 'NULL'
             );
             file_put_contents('public/legacy_sql/14-investment.txt', $sql, FILE_APPEND);
+
+            $this->InvestmentContact($item['id'], $item['contact_id']);
         }
+    }
+
+    private function InvestmentContact(string $investment, ?string $contact)
+    {
+        if($contact === null) {
+            return;
+        }
+        $sql = sprintf('INSERT INTO investment_fund_contact (investment_fund_id, person_id) VALUES ("%s", "%s");', $investment, $contact);
+        file_put_contents('public/legacy_sql/14-investment.txt', $sql, FILE_APPEND);
     }
 
     private function legacyInvestmentNotes()

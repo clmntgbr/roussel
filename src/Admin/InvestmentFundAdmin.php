@@ -20,7 +20,7 @@ final class InvestmentFundAdmin extends AbstractAdmin
 {
     public function getExportFields()
     {
-        return ['id', 'name', 'ContactsExport', 'TargetExport', 'PositioningExport', 'CreatedAtForExport', 'createdBy'];
+        return ['id', 'name', 'ContactsExport', 'TargetExport', 'PositioningExport', 'CreatedAtForExport', 'UpdatedAtForExport', 'CreatedByForExport'];
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
@@ -62,7 +62,7 @@ final class InvestmentFundAdmin extends AbstractAdmin
             ])
             ->add('contacts', TextType::class, [
                 'label' => 'Contact',
-                'associated_property' => 'contactEmail'
+                'associated_property' => 'name'
             ])
             ->add('target', 'html', [
                 'label' => 'Cible'
@@ -72,6 +72,10 @@ final class InvestmentFundAdmin extends AbstractAdmin
             ])
             ->add('createdAt', null, [
                 'label' => 'Date de création',
+                'format' => 'd/m/Y H:i:s'
+            ])
+            ->add('updatedAt', null, [
+                'label' => 'Date de modification',
                 'format' => 'd/m/Y H:i:s'
             ])
             ->add('createdBy', TextType::class, [

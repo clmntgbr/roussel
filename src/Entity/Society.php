@@ -395,6 +395,14 @@ class Society
         return $this->contactEmail;
     }
 
+    public function getPostalCode(): ?string
+    {
+        if($this->address === null) {
+            return null;
+        }
+        return $this->address->getPostalCode();
+    }
+
     public function setContactEmail(?string $contactEmail): self
     {
         $this->contactEmail = $contactEmail;
@@ -614,10 +622,38 @@ class Society
         return $this->createdAt->format('d/m/Y');
     }
 
+    public function UpdatedAtForExport()
+    {
+        return $this->updatedAt->format('d/m/Y');
+    }
+
+    public function CreatedByForExport()
+    {
+        return $this->createdBy->getEmail();
+    }
+
     public function setCreatedBy(?User $createdBy): self
     {
         $this->createdBy = $createdBy;
 
         return $this;
+    }
+
+    public function SpecialtiesExport()
+    {
+        $tmp = [];
+        foreach ($this->specialties as $specialty) {
+            $tmp[] = sprintf('[%s]', $specialty->getName());
+        }
+        return implode(', ', $tmp);
+    }
+
+    public function OperationsExport()
+    {
+        $tmp = [];
+        foreach ($this->operations as $operation) {
+            $tmp[] = sprintf('[%s]', $operation->getName());
+        }
+        return implode(', ', $tmp);
     }
 }

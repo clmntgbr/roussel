@@ -16,7 +16,7 @@ final class TransactionAdmin extends AbstractAdmin
 {
     public function getExportFields()
     {
-        return ['id', 'TitleForExport', 'ContentForExport', 'company', 'DateForExport', 'city', 'CreatedAtForExport'];
+        return ['id', 'TitleForExport', 'ContentForExport', 'company', 'DateForExport', 'city', 'CreatedAtForExport', 'UpdatedAtForExport', 'CreatedByForExport'];
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
@@ -59,17 +59,21 @@ final class TransactionAdmin extends AbstractAdmin
             ->add('company', TextType::class, [
                 'label' => 'Nom de la société'
             ])
+            ->add('city', TextType::class, [
+                'label' => 'Ville'
+            ])
             ->add('date', 'date', [
                 'label' => 'Date de la transaction',
                 'format' => 'd/m/Y',
                 'locale' => 'fr',
                 'timezone' => 'Europe/Paris'
             ])
-            ->add('city', TextType::class, [
-                'label' => 'Ville'
-            ])
             ->add('createdAt', null, [
                 'label' => 'Date de création',
+                'format' => 'd/m/Y H:i:s'
+            ])
+            ->add('updatedAt', null, [
+                'label' => 'Date de modification',
                 'format' => 'd/m/Y H:i:s'
             ])
             ->add('createdBy', TextType::class, [

@@ -74,4 +74,14 @@ class User extends BaseUser
 
         return $this;
     }
+
+    public function CreatedAtForExport()
+    {
+        return $this->createdAt->format('d/m/Y');
+    }
+
+    public function UpdatedAtForExport()
+    {
+        return $this->updatedAt->format('d/m/Y');
+    }
 }

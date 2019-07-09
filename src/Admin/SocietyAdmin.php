@@ -20,7 +20,7 @@ final class SocietyAdmin extends AbstractAdmin
 {
     public function getExportFields()
     {
-        return ['id', 'name', 'parentCompany', 'activity', 'turnover', 'contactEmail', 'CreatedAtForExport', 'createdBy'];
+        return ['id', 'name', 'parentCompany', 'activity', 'SpecialtiesExport', 'OperationsExport', 'turnover', 'getPostalCode', 'contactEmail', 'CreatedAtForExport', 'UpdatedAtForExport', 'CreatedByForExport'];
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
@@ -105,14 +105,29 @@ final class SocietyAdmin extends AbstractAdmin
             ->add('activity', null, [
                 'label' => 'Activités'
             ])
+            ->add('specialties', SpecialtyType::class, [
+                'label' => 'Spécialitées',
+                'associated_property' => 'name'
+            ])
+            ->add('operations', OperationType::class, [
+                'label' => 'Opérations',
+                'associated_property' => 'name'
+            ])
             ->add('turnover', null, [
                 'label' => 'Chiffre d\'affaire'
+            ])
+            ->add('getPostalCode', null, [
+                'label' => 'Code Postal'
             ])
             ->add('contactEmail', null, [
                 'label' => 'Email'
             ])
             ->add('createdAt', null, [
                 'label' => 'Date de création',
+                'format' => 'd/m/Y H:i:s'
+            ])
+            ->add('updatedAt', null, [
+                'label' => 'Date de modification',
                 'format' => 'd/m/Y H:i:s'
             ])
             ->add('createdBy', TextType::class, [
