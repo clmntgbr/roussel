@@ -94,8 +94,6 @@ final class UserAdmin extends AbstractAdmin
             ->add('email')
             ->add('emailCanonical')
             ->add('enabled')
-            ->add('salt')
-            ->add('password')
             ->add('lastLogin', DatePickerType::class, [
                 'format' => 'dd/MM/yyyy, H:mm:ss',
                 'disabled' => true
