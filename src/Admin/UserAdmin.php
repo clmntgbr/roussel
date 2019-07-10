@@ -4,19 +4,80 @@ declare(strict_types=1);
 
 namespace App\Admin;
 
+use App\Entity\Media;
+use App\Entity\User;
+use App\Util\Security;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\DatePickerType;
+use Sonata\Form\Validator\ErrorElement;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class UserAdmin extends AbstractAdmin
 {
+    /** @var Security */
+    private $security;
+
+    public function __construct($code, $class, $baseControllerName, Security $security)
+    {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->security = $security;
+    }
+
     public function getExportFields()
     {
         return ['id', 'email', 'CreatedAtForExport', 'UpdatedAtForExport'];
+    }
+
+    public function preUpdate($entity)
+    {
+        assert($entity instanceof User);
+
+        $uploader = $this->getConfigurationPool()->getContainer()->get('app.util.uploader');
+        $media = $uploader->upload($entity->getFile(), $entity->getAvatar(), 'images', 'users');
+        if($media instanceof Media) {
+            $entity->setAvatar($media);
+        }
+
+        if($entity->getOldPassword() !== null && $entity->getNewPassword() !== null) {
+            $newPassword = json_decode(json_encode($entity), true)['newPassword'];
+            $oldPassword = json_decode(json_encode($entity), true)['oldPassword'];
+            $this->security->changePassword($entity, $oldPassword, $newPassword);
+        }
+
+    }
+
+    public function prePersist($entity)
+    {
+        assert($entity instanceof User);
+        $uploader = $this->getConfigurationPool()->getContainer()->get('app.util.uploader');
+        $media = $uploader->upload($entity->getFile(), $entity->getAvatar(), 'images', 'users');
+        if($media instanceof Media) {
+            $entity->setAvatar($media);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function validate(ErrorElement $errorElement, $object) {
+        assert($object instanceof User);
+        if ($object->getOldPassword() === null && $object->getNewPassword() !== null) {
+            $errorElement->with('oldPassword')->addViolation('You need to provide the current password for changing it.')->end();
+            return;
+        }
+
+        if ($object->getOldPassword() !== null) {
+            if(!($this->security->passwordIsCurrent($object, $object->getOldPassword()))) {
+                $errorElement->with('oldPassword')->addViolation('password is not valid.')->end();
+                return;
+            }
+        }
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
@@ -65,6 +126,19 @@ final class UserAdmin extends AbstractAdmin
 
     protected function configureFormFields(FormMapper $formMapper): void
     {
+        $entity = $this->getSubject();
+        assert($entity instanceof User);
+
+        $fileFieldOptions = [];
+        if ($entity->getAvatar() instanceof Media) {
+            $container = $this->getConfigurationPool()->getContainer();
+            $path = sprintf('%s/%s', $container->get('request_stack')->getCurrentRequest()->getBasePath(), $entity->getAvatar()->getFile());
+            $fileFieldOptions['data_class'] = Media::class;
+            $fileFieldOptions['label'] = "Avatar";
+            $fileFieldOptions['required'] = false;
+            $fileFieldOptions['help'] = sprintf('<img src="%s" class="admin-preview"/>', $path);
+        }
+
         $formMapper
             ->with('Meta Informations', [
                 'class' => 'col-xs-12',
@@ -97,20 +171,25 @@ final class UserAdmin extends AbstractAdmin
             ->add('usernameCanonical')
             ->add('email')
             ->add('emailCanonical')
+            ->add('surname')
             ->add('enabled')
             ->add('lastLogin', DatePickerType::class, [
                 'format' => 'dd/MM/yyyy, H:mm:ss',
                 'disabled' => true
             ])
-            ->add('confirmationToken', null, [
-                'disabled' => true
-            ])
-            ->add('passwordRequestedAt', DatePickerType::class, [
-                'format' => 'dd/MM/yyyy, H:mm:ss',
-                'required' => false,
-                'disabled' => true
-            ])
             ->add('roles')
+            ->add('file', FileType::class, $fileFieldOptions)
+            ->end()
+            ->with('Password', [
+                'class' => 'col-xs-12',
+                'box_class' => 'box box-solid box-success'
+            ])
+            ->add('newPassword', PasswordType::class, [
+                'required' => false
+            ])
+            ->add('oldPassword', PasswordType::class, [
+                'required' => false
+            ])
             ->end()
             ;
     }

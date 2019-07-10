@@ -4,12 +4,18 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TransactionRepository")
  */
 class Transaction
 {
+    /**
+     * @var UploadedFile|null
+     */
+    public $file;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -226,5 +232,13 @@ class Transaction
         $this->createdBy = $createdBy;
 
         return $this;
+    }
+
+    /**
+     * @return UploadedFile|null
+     */
+    public function getFile(): ?UploadedFile
+    {
+        return $this->file;
     }
 }

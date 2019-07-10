@@ -85,13 +85,13 @@ final class ArticleAdmin extends AbstractAdmin
                 'label' => 'Date de création',
                 'format' => 'd/m/Y H:i:s'
             ])
-            ->add('createdBy', TextType::class, [
-                'disabled' => true,
-                'required' => false
-            ])
             ->add('updatedAt', null, [
                 'label' => 'Date de modification',
                 'format' => 'd/m/Y H:i:s'
+            ])
+            ->add('createdBy', TextType::class, [
+                'disabled' => true,
+                'required' => false
             ])
             ->add('_action', null, [
                 'actions' => [

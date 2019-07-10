@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace App\Admin;
 
+use App\Entity\Media;
+use App\Entity\Transaction;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\Form\Type\DatePickerType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class TransactionAdmin extends AbstractAdmin
@@ -17,6 +20,26 @@ final class TransactionAdmin extends AbstractAdmin
     public function getExportFields()
     {
         return ['id', 'TitleForExport', 'ContentForExport', 'company', 'DateForExport', 'city', 'CreatedAtForExport', 'UpdatedAtForExport', 'CreatedByForExport'];
+    }
+
+    public function preUpdate($entity)
+    {
+        assert($entity instanceof Transaction);
+        $uploader = $this->getConfigurationPool()->getContainer()->get('app.util.uploader');
+        $media = $uploader->upload($entity->getFile(), $entity->getPreview(), 'images', 'transactions');
+        if($media instanceof Media) {
+            $entity->setPreview($media);
+        }
+    }
+
+    public function prePersist($entity)
+    {
+        assert($entity instanceof Transaction);
+        $uploader = $this->getConfigurationPool()->getContainer()->get('app.util.uploader');
+        $media = $uploader->upload($entity->getFile(), $entity->getPreview(), 'images', 'transactions');
+        if($media instanceof Media) {
+            $entity->setPreview($media);
+        }
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
@@ -95,6 +118,19 @@ final class TransactionAdmin extends AbstractAdmin
 
     protected function configureFormFields(FormMapper $formMapper): void
     {
+        $entity = $this->getSubject();
+        assert($entity instanceof Transaction);
+
+        $fileFieldOptions = [];
+        if ($entity->getPreview() instanceof Media) {
+            $container = $this->getConfigurationPool()->getContainer();
+            $path = sprintf('%s/%s', $container->get('request_stack')->getCurrentRequest()->getBasePath(), $entity->getPreview()->getFile());
+            $fileFieldOptions['data_class'] = Media::class;
+            $fileFieldOptions['label'] = "Image de couverture";
+            $fileFieldOptions['required'] = false;
+            $fileFieldOptions['help'] = sprintf('<img src="%s" class="admin-preview"/>', $path);
+        }
+
         $formMapper
             ->with('Meta Informations', [
                 'class' => 'col-xs-12',
@@ -148,7 +184,7 @@ final class TransactionAdmin extends AbstractAdmin
                 'label' => 'Ville',
                 'required' => false
             ])
-            ->end()
-            ;
+            ->add('file', FileType::class, $fileFieldOptions)
+            ->end();
     }
 }
