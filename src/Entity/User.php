@@ -42,6 +42,20 @@ class User extends BaseUser
     private $surname;
 
     /**
+     * @var ?string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $resume;
+
+    /**
+     * @var ?string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $work;
+
+    /**
      * @var \DateTimeImmutable
      *
      * @Gedmo\Timestampable(on="create")
@@ -162,5 +176,29 @@ class User extends BaseUser
     public function getOldPassword(): ?string
     {
         return $this->oldPassword;
+    }
+
+    public function getResume(): ?string
+    {
+        return $this->resume;
+    }
+
+    public function setResume(?string $resume): self
+    {
+        $this->resume = $resume;
+
+        return $this;
+    }
+
+    public function getWork(): ?string
+    {
+        return $this->work;
+    }
+
+    public function setWork(?string $work): self
+    {
+        $this->work = $work;
+
+        return $this;
     }
 }

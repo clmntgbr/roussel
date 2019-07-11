@@ -171,7 +171,6 @@ final class UserAdmin extends AbstractAdmin
             ->add('usernameCanonical')
             ->add('email')
             ->add('emailCanonical')
-            ->add('surname')
             ->add('enabled')
             ->add('lastLogin', DatePickerType::class, [
                 'format' => 'dd/MM/yyyy, H:mm:ss',
@@ -190,6 +189,14 @@ final class UserAdmin extends AbstractAdmin
             ->add('oldPassword', PasswordType::class, [
                 'required' => false
             ])
+            ->end()
+            ->with('Configuration', [
+                'class' => 'col-xs-12',
+                'box_class' => 'box box-solid box-success'
+            ])
+            ->add('surname')
+            ->add('resume')
+            ->add('work')
             ->end()
             ;
     }

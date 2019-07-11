@@ -17,28 +17,28 @@ services:
         class: App\Util\Uploader
         public: true
 
-    admin.societies:
+    admin.society:
         class: App\Admin\SocietyAdmin
         arguments: [~, App\Entity\Society, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: 'Admin', label: 'Sociétés' }
         public: true
 
-    admin.investment_funds:
+    admin.investment_fund:
         class: App\Admin\InvestmentFundAdmin
         arguments: [~, App\Entity\InvestmentFund, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: 'Admin', label: "Fonds d'investissements" }
         public: true
 
-    admin.articles:
+    admin.article:
         class: App\Admin\ArticleAdmin
         arguments: [~, App\Entity\Article, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: 'Admin', label: 'Articles' }
         public: true
 
-    admin.transactions:
+    admin.transaction:
         class: App\Admin\TransactionAdmin
         arguments: [~, App\Entity\Transaction, ~]
         tags:
@@ -50,4 +50,11 @@ services:
         arguments: [~, App\Entity\User, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: 'Admin', label: 'User' }
+        public: true
+
+    admin.contact:
+        class: App\Admin\ContactAdmin
+        arguments: [~, App\Entity\Contact, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Admin', label: Contact }
         public: true
