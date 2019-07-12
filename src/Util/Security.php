@@ -58,7 +58,7 @@ class Security
         if ($email !== null && $password !== null) {
             $errors = $this->validator->validate($email, $constraints);
             if (count($errors) > 0) {
-                return ["status" => false, "message" => "$email is not a valid email address."];
+                return false;
             } else {
                 $user = $this->em->getRepository(User::class)->findOneBy(["email" => $email]);
                 if ($user instanceof User) {
@@ -73,10 +73,10 @@ class Security
             $user->setLastLogin(new \DateTime());
             $this->em->persist($user);
             $this->em->flush();
-            return ["status" => true];
+            return true;
         }
 
-        return ["status" => false, "message" => "Email or/and password invalid."];
+        return false;
     }
 
     public function register($email, $password, $passwordConfirmation, $role = 'ROLE_USER', $tokenIt = true)
@@ -140,7 +140,7 @@ class Security
     private function setToken(User $user)
     {
         $token = new UsernamePasswordToken($user, null, "secured_area", $user->getRoles());
-        $this->tokenStorage->setToken($token);
+        $this->tokenStorage->setToken($token, $token);
         $this->session->set("_security_secured_area", serialize($token));
     }
 }

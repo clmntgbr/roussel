@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheet %}
+    <link href="{{ asset('css/login.css') }}" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row no-gutter">
+            <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+            <div class="col-md-8 col-lg-6">
+                <div class="login d-flex align-items-center py-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-lg-8 mx-auto">
+                                <h3 class="login-heading mb-4">Welcome back!</h3>
+                                {{ form_start(login) }}
+                                    <div class="form-label-group">
+                                        {{ form_widget(login.email, {'attr': {'class': 'form-control', 'placeholder': 'Email address'}}) }}
+                                    </div>
+
+                                    <div class="form-label-group">
+                                        {{ form_widget(login.password, {'attr': {'class': 'form-control', 'placeholder': 'Password'}}) }}
+                                    </div>
+                                    <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign in</button>
+                                {{ form_end(login) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

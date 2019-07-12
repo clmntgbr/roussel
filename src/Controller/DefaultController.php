@@ -27,7 +27,7 @@ class DefaultController extends AbstractController
             'method' => 'POST'
         ]);
 
-        return $this->render('default/index.html.twig', [
+        return $this->render('default/homepage.html.twig', [
             'articles' => $em->getRepository(Article::class)->findAll(),
             'transactions' => $em->getRepository(Transaction::class)->findAll(),
             'user' => $em->getRepository(User::class)->findOneBy(['email' => 'yroussel62@gmail.com']),

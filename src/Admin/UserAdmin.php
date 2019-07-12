@@ -167,10 +167,22 @@ final class UserAdmin extends AbstractAdmin
                 'class' => 'col-xs-12',
                 'box_class' => 'box box-solid box-success'
             ])
-            ->add('username')
-            ->add('usernameCanonical')
-            ->add('email')
-            ->add('emailCanonical')
+            ->add('username', null, [
+                'disabled' => true,
+                'required' => false
+            ])
+            ->add('usernameCanonical', null, [
+                'disabled' => true,
+                'required' => false
+            ])
+            ->add('email', null, [
+                'disabled' => true,
+                'required' => false
+            ])
+            ->add('emailCanonical', null, [
+                'disabled' => true,
+                'required' => false
+            ])
             ->add('enabled')
             ->add('lastLogin', DatePickerType::class, [
                 'format' => 'dd/MM/yyyy, H:mm:ss',
