@@ -68,13 +68,6 @@ class Contact
      */
     private $updatedAt;
 
-    /**
-     * @param string|null $name
-     * @param string|null $email
-     * @param string|null $phone
-     * @param string|null $subject
-     * @param string|null $body
-     */
     public function __construct($name, $email, $phone, $subject, $body)
     {
         $this->name = $name;
@@ -171,5 +164,18 @@ class Contact
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    public function CreatedAtForExport()
+    {
+        return $this->createdAt->format('d/m/Y');
+    }
+
+    public function UpdatedAtForExport()
+    {
+        if($this->updatedAt === null) {
+            return null;
+        }
+        return $this->updatedAt->format('d/m/Y');
     }
 }

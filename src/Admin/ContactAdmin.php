@@ -15,6 +15,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class ContactAdmin extends AbstractAdmin
 {
+    public function getExportFields()
+    {
+        return ['id', 'name', 'email', 'phone', 'subject', 'body', 'CreatedAtForExport', 'UpdatedAtForExport'];
+    }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {

@@ -199,6 +199,9 @@ class Article
 
     public function UpdatedAtForExport()
     {
+        if($this->updatedAt === null) {
+            return null;
+        }
         return $this->updatedAt->format('d/m/Y');
     }
 

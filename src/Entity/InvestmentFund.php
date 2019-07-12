@@ -343,6 +343,9 @@ class InvestmentFund
 
     public function UpdatedAtForExport()
     {
+        if($this->updatedAt === null) {
+            return null;
+        }
         return $this->updatedAt->format('d/m/Y');
     }
 
@@ -353,11 +356,17 @@ class InvestmentFund
 
     public function TargetExport()
     {
+        if($this->getTarget() === null) {
+            return null;
+        }
         return trim($this->getTarget()->__toStringForExport());
     }
 
     public function PositioningExport()
     {
+        if($this->getPositioning() === null) {
+            return null;
+        }
         return trim($this->getPositioning()->__toStringForExport());
     }
 
