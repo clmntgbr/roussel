@@ -49,6 +49,7 @@ class LegacyCommand extends Command
         $input = new ArrayInput($arguments);
         $command->run($input, $output);
 
+        $this->legacyMedia();
         $this->legacyUser();
         $this->legacyAddress();
         $this->legacyContact();
@@ -93,10 +94,16 @@ class LegacyCommand extends Command
         }
     }
 
+    private function legacyMedia()
+    {
+        $content = file_get_contents('public/media.sql');
+        file_put_contents('public/legacy_sql/000-media.txt', $content, FILE_APPEND);
+    }
+
     private function legacyUser()
     {
         $content = file_get_contents('public/user.sql');
-        file_put_contents('public/legacy_sql/00-user.txt', $content, FILE_APPEND);
+        file_put_contents('public/legacy_sql/001-user.txt', $content, FILE_APPEND);
     }
 
     private function legacyAddress()

@@ -1,0 +1,1 @@
+INSERT INTO media (id,name,type,path,created_at,updated_at) VALUES (111111,'http://rcapital.fr/public/images/configurations/1140622449743e53a964b23c71bfb35b.jpeg','images',NULL,'2019-07-09 14:05:31','2019-07-09 14:05:41');

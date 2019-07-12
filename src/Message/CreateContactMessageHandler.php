@@ -3,8 +3,8 @@
 namespace App\Message;
 
 use App\Entity\Contact;
+use App\Util\Mailer;
 use Doctrine\ORM\EntityManagerInterface;
-use Swift_Mailer;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 class CreateContactMessageHandler implements MessageHandlerInterface
@@ -12,10 +12,10 @@ class CreateContactMessageHandler implements MessageHandlerInterface
     /** @var EntityManagerInterface */
     private $em;
 
-    /** @var Swift_Mailer */
+    /** @var Mailer */
     private $mailer;
 
-    public function __construct(EntityManagerInterface $em, Swift_Mailer $mailer)
+    public function __construct(EntityManagerInterface $em, Mailer $mailer)
     {
         $this->em = $em;
         $this->mailer = $mailer;
@@ -32,12 +32,17 @@ class CreateContactMessageHandler implements MessageHandlerInterface
             $command->getBody()
         );
 
-        $message = (new \Swift_Message($command->getSubject()))
-            ->setFrom($command->getEmail())
-            ->setTo('clement.goubier@gmail.com') //TODO CHANGE IT
-            ->setBody($command->getBody());
-
-        $this->mailer->send($message);
+        $this->mailer->send(
+            $command->getEmail(),
+            $command->getSubject(),
+            'contact',
+            [
+                'name' => $command->getName(),
+                'email' => $command->getEmail(),
+                'phone' => $command->getPhone(),
+                'body' => $command->getBody()
+            ]
+        );
 
         $this->em->persist($contact);
         $this->em->flush();
