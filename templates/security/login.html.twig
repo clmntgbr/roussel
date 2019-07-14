@@ -18,12 +18,22 @@
                                 {{ form_start(login) }}
                                     <div class="form-label-group">
                                         {{ form_widget(login.email, {'attr': {'class': 'form-control', 'placeholder': 'Email address'}}) }}
+                                        <label for="login_email">Email address</label>
                                     </div>
 
                                     <div class="form-label-group">
                                         {{ form_widget(login.password, {'attr': {'class': 'form-control', 'placeholder': 'Password'}}) }}
+                                        <label for="login_password">Password</label>
+                                    </div>
+
+                                    <div class="custom-control custom-checkbox mb-3">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                        <label class="custom-control-label" for="customCheck1">Remember password</label>
                                     </div>
                                     <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign in</button>
+{#                                    <div class="text-center">#}
+{#                                        <a class="small" href="#">Forgot password?</a>#}
+{#                                    </div>#}
                                 {{ form_end(login) }}
                             </div>
                         </div>
