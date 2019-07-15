@@ -51,7 +51,11 @@ class DefaultController extends AbstractController
             );
 
             $messageBus->dispatch($message);
+            $this->addFlash('success', 'Your message have been sended.');
+            return $this->redirectToRoute('homepage');
         }
+
+        $this->addFlash('error', 'A problem have been encountered with your message.');
         return $this->redirectToRoute('homepage');
     }
 }

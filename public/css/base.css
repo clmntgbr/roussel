@@ -1,0 +1,8 @@
+.alert-message {
+    width: 500px;
+    position: absolute;
+    z-index: 10000;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 20px;
+}
