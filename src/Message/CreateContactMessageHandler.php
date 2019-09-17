@@ -34,13 +34,13 @@ class CreateContactMessageHandler implements MessageHandlerInterface
 
         $this->mailer->send(
             $command->getEmail(),
-            $command->getSubject(),
             'contact',
             [
                 'name' => $command->getName(),
                 'email' => $command->getEmail(),
                 'phone' => $command->getPhone(),
-                'body' => $command->getBody()
+                'body' => $command->getBody(),
+                'subject' => $command->getSubject()
             ]
         );
 

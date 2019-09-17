@@ -3,6 +3,7 @@
 namespace App\Util;
 
 use Swift_Mailer;
+use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\Templating\EngineInterface;
 
 class Mailer
@@ -19,11 +20,17 @@ class Mailer
         $this->swiftMailer = $swiftMailer;
     }
 
-    public function send(string $forwarder, string $subject, string $template, array $options)
+    public function send(string $forwarder, string $template, array $options)
     {
-        $message = (new \Swift_Message($subject))
+        $dotenv = new Dotenv();
+        $dotenv->load(__DIR__.'/../../.env.local');
+
+
+
+        $message = (new \Swift_Message())
             ->setFrom($forwarder)
-            ->setTo('clement.goubier@gmail.com')
+            ->setTo($_ENV['EMAIL_TO_SEND'])
+            ->setSubject('You receive an email from RCapital.fr')
             ->setBody(
                 $this->templating->render(
                     sprintf('emails/%s.html.twig', $template),

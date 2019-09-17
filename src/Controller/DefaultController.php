@@ -8,7 +8,9 @@ use App\Entity\Transaction;
 use App\Entity\User;
 use App\Form\ContactType;
 use App\Message\CreateContactMessage;
+use ReCaptcha\ReCaptcha;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -40,6 +42,17 @@ class DefaultController extends AbstractController
      */
     public function mailerAction(Request $request, MessageBusInterface $messageBus)
     {
+        $dotenv = new Dotenv();
+        $dotenv->load(__DIR__.'/../../.env.local');
+
+        $recaptcha = new ReCaptcha($_ENV['GOOGLE_RECAPTCHA_SECRET']);
+        $response = $recaptcha->verify($request->request->get('g-recaptcha-response'), $request->getClientIp());
+
+        if (!$response->isSuccess()) {
+            $this->addFlash('alert', "Le reCAPTCHA n'a pas été validé correctement. Veuillez ressayer.");
+            return $this->redirectToRoute('homepage');
+        }
+
         $data = $request->request->get('contact');
         if (isset($data['name'], $data['email'], $data['phone'], $data['subject'], $data['body'], $data['_token'])) {
             $message = new CreateContactMessage(
@@ -51,11 +64,11 @@ class DefaultController extends AbstractController
             );
 
             $messageBus->dispatch($message);
-            $this->addFlash('success', 'Your message have been sended.');
+            $this->addFlash('success', 'Votre message a bien été envoyé.');
             return $this->redirectToRoute('homepage');
         }
 
-        $this->addFlash('error', 'A problem have been encountered with your message.');
+        $this->addFlash('alert', 'Un problème est apparu avec votre message.');
         return $this->redirectToRoute('homepage');
     }
 }

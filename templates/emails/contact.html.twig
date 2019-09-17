@@ -1,6 +1,23 @@
-<h3>{{ name }} send you a message : </h3><br>
+<!DOCTYPE html>
+<html lang="fr">
 
-<i>{{ body }}</i><br><br>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="personal blog">
+    <meta name="author" content="Yoann Roussel">
 
-<p>phone number : {{ phone }}</p><br>
-<p>email : {{ email }}</p><br>
+</head>
+
+<body>
+    You receive an email from <a href = "mailto: {{ email }}">{{ name }}</a>.<br>
+
+    His number is {{ phone }}.<br>
+
+    His subject : {{ subject }}.<br>
+
+    The body : {{ body }}.<br>
+
+</body>
+
+</html>
