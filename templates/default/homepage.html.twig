@@ -21,19 +21,13 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#services">Compétences</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#articles">Articles</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#team">Expériences</a>
+                        <a class="nav-link js-scroll-trigger" href="#about">A propos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#transactions">Transactions</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#about">A propos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
@@ -49,46 +43,12 @@
     <header class="masthead">
         <div class="container">
             <div class="intro-text">
-                <div class="intro-lead-in">Welcome To Our Studio!</div>
-                <div class="intro-heading">It's Nice To Meet You</div>
-                <a class="btn btn-primary btn-xl js-scroll-trigger" href="#services">Tell Me More</a>
+                <div class="intro-heading">Yoann Roussel</div>
+                <div class="intro-lead-in">Banquier d'affaires</div>
+                <a class="btn btn-primary btn-xl js-scroll-trigger" href="#contact">Me Contacter</a>
             </div>
         </div>
     </header>
-
-    <section class="page-section" id="services">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Compétences</h2>
-                    <h3 class="section-subheading text-muted"></h3>
-                </div>
-            </div>
-            <div class="row text-center">
-                <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-          </span>
-                    <h4 class="service-heading">Conseil M&A</h4>
-                </div>
-                <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-          </span>
-                    <h4 class="service-heading">Ingénierie financière</h4>
-                </div>
-                <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-          </span>
-                    <h4 class="service-heading">Valorisation</h4>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <section class="bg-light page-section" id="articles">
         <div class="container">
@@ -122,47 +82,63 @@
         </div>
     </section>
 
-    <section class="page-section" id="team">
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-light page-section" id="about">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Expériences</h2>
-                    <h3 class="section-subheading text-muted"></h3>
+                    <h3 class="section-subheading text-muted">{{ user.resume }}</h3>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12">
-                    <ul class="timeline">
-                        <li>
-                            <div class="timeline-image">
-                                <img class="rounded-circle img-fluid" src="img/about/1.jpg" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>2014-2015</h4>
-                                    <h4 class="subheading">Master 2 Stratégie et Ingénierie Financière</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">Université Paris-Saclay</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline-inverted">
-                            <div class="timeline-image">
-                                <img class="rounded-circle img-fluid" src="img/about/2.jpg" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>2015 - Aujourd'hui</h4>
-                                    <h4 class="subheading">Crescendo Finance</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">Directeur Général</p>
-                                </div>
-                            </div>
-                        </li>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        <img class="mx-auto rounded-circle" src="{{ user.avatar.path }}{{ user.avatar.name }}" alt="">
+                        <h4>{{ user.surname }}</h4>
+                        <p class="text-muted">{{ user.work }}</p>
+                        <ul class="list-inline social-buttons">
+                            <li class="list-inline-item">
+                                <a href="https://www.linkedin.com/in/yoann-roussel">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-4"></div>
 
-                    </ul>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-4">
+          <span class="fa-stack fa-4x">
+            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+          </span>
+                    <h4 class="service-heading">Conseil M&A</h4>
+                </div>
+                <div class="col-md-4">
+          <span class="fa-stack fa-4x">
+            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+          </span>
+                    <h4 class="service-heading">Ingénierie financière</h4>
+                </div>
+                <div class="col-md-4">
+          <span class="fa-stack fa-4x">
+            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+          </span>
+                    <h4 class="service-heading">Valorisation</h4>
                 </div>
             </div>
         </div>
@@ -195,62 +171,6 @@
                         </div>
                     </div>
                 {% endfor %}
-            </div>
-        </div>
-    </section>
-
-    <section class="py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="img/logos/envato.jpg" alt="">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="img/logos/designmodo.jpg" alt="">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="img/logos/themeforest.jpg" alt="">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="img/logos/creative-market.jpg" alt="">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="bg-light page-section" id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h3 class="section-subheading text-muted">{{ user.resume }}</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4"></div>
-                <div class="col-sm-4">
-                    <div class="team-member">
-                        <img class="mx-auto rounded-circle" src="{{ user.avatar.path }}{{ user.avatar.name }}" alt="">
-                        <h4>{{ user.surname }}</h4>
-                        <p class="text-muted">{{ user.work }}</p>
-                        <ul class="list-inline social-buttons">
-                            <li class="list-inline-item">
-                                <a href="https://www.linkedin.com/in/yoann-roussel">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-4"></div>
-
             </div>
         </div>
     </section>
