@@ -26,9 +26,9 @@
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#about">A propos</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#transactions">Transactions</a>
-                    </li>
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link js-scroll-trigger" href="#transactions">Transactions</a>#}
+{#                    </li>#}
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
                     </li>
@@ -117,63 +117,63 @@
 
             </div>
         </div>
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-          </span>
-                    <h4 class="service-heading">Conseil M&A</h4>
-                </div>
-                <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-          </span>
-                    <h4 class="service-heading">Ingénierie financière</h4>
-                </div>
-                <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-          </span>
-                    <h4 class="service-heading">Valorisation</h4>
-                </div>
-            </div>
-        </div>
+{#        <div class="container">#}
+{#            <div class="row text-center">#}
+{#                <div class="col-md-4">#}
+{#          <span class="fa-stack fa-4x">#}
+{#            <i class="fas fa-circle fa-stack-2x text-primary"></i>#}
+{#            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>#}
+{#          </span>#}
+{#                    <h4 class="service-heading">Conseil M&A</h4>#}
+{#                </div>#}
+{#                <div class="col-md-4">#}
+{#          <span class="fa-stack fa-4x">#}
+{#            <i class="fas fa-circle fa-stack-2x text-primary"></i>#}
+{#            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>#}
+{#          </span>#}
+{#                    <h4 class="service-heading">Ingénierie financière</h4>#}
+{#                </div>#}
+{#                <div class="col-md-4">#}
+{#          <span class="fa-stack fa-4x">#}
+{#            <i class="fas fa-circle fa-stack-2x text-primary"></i>#}
+{#            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>#}
+{#          </span>#}
+{#                    <h4 class="service-heading">Valorisation</h4>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
     </section>
 
-    <section class="bg-light page-section" id="transactions">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Transactions</h2>
-                    <h3 class="section-subheading text-muted"></h3>
-                </div>
-            </div>
-            <div class="row">
-                {% if transactions|length <= 1 %}
-                    <h3 class="section-subheading text-muted text-center" style="text-align: center!important;display: block;width: 100%;">Il n'y a aucune transactions pour le moment. Revenez plus tard.</h3>
-                {% endif %}
-                {% for transaction in transactions %}
-                    <div class="col-md-4 col-sm-6 portfolio-item">
-                        <a class="portfolio-link" data-toggle="modal" href="#transaction{{ transaction.id }}">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content">
-                                    <i class="fas fa-plus fa-3x"></i>
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="{{ transaction.preview.path }}{{ transaction.preview.name }}" alt="">
-                        </a>
-                        <div class="portfolio-caption">
-                            <h4>{{ transaction.title|raw }}</h4>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
+{#    <section class="bg-light page-section" id="transactions">#}
+{#        <div class="container">#}
+{#            <div class="row">#}
+{#                <div class="col-lg-12 text-center">#}
+{#                    <h2 class="section-heading">Transactions</h2>#}
+{#                    <h3 class="section-subheading text-muted"></h3>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="row">#}
+{#                {% if transactions|length <= 1 %}#}
+{#                    <h3 class="section-subheading text-muted text-center" style="text-align: center!important;display: block;width: 100%;">Il n'y a aucune transactions pour le moment. Revenez plus tard.</h3>#}
+{#                {% endif %}#}
+{#                {% for transaction in transactions %}#}
+{#                    <div class="col-md-4 col-sm-6 portfolio-item">#}
+{#                        <a class="portfolio-link" data-toggle="modal" href="#transaction{{ transaction.id }}">#}
+{#                            <div class="portfolio-hover">#}
+{#                                <div class="portfolio-hover-content">#}
+{#                                    <i class="fas fa-plus fa-3x"></i>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <img class="img-fluid" src="{{ transaction.preview.path }}{{ transaction.preview.name }}" alt="">#}
+{#                        </a>#}
+{#                        <div class="portfolio-caption">#}
+{#                            <h4>{{ transaction.title|raw }}</h4>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                {% endfor %}#}
+{#            </div>#}
+{#        </div>#}
+{#    </section>#}
 
     <section class="page-section" id="contact">
         <div class="container">
